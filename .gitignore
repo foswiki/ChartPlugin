@@ -1,0 +1,9 @@
+*.swp
+igp_*
+ChartPlugin.md5
+ChartPlugin.sha1
+ChartPlugin.tgz
+ChartPlugin.txt
+ChartPlugin.zip
+ChartPlugin_installer
+ChartPlugin_installer.pl
