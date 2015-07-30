@@ -1156,7 +1156,7 @@ sub makeChart {
 
             # Create the top of the polygon
             for $xIndex ( 0 .. ( $numDataPoints - 1 ) ) {
-                my $topYValue = $row[$xIndex];
+                my $topYValue = defined( $row[$xIndex] ) ? $row[$xIndex] : "";
 
                 # If there is no current value, then there is no default
                 # value so assume a value the same as the minimum of the
@@ -1426,8 +1426,9 @@ sub makeChart {
 
         # Draw the data set (if an area, it gets filled in by code below).
         for my $xIndex ( 0 .. ( $numDataPoints - 2 ) ) {
-            my $currentYValue = $row[$xIndex];
-            my $nextYValue    = $row[ $xIndex + 1 ];
+            my $currentYValue = defined $row[$xIndex] ? $row[$xIndex] : "";
+            my $nextYValue =
+              defined $row[ $xIndex + 1 ] ? $row[ $xIndex + 1 ] : "";
             $currentYValue = $this->_scale($currentYValue)
               if ( $currentYValue ne "" );
             $nextYValue = $this->_scale($nextYValue) if ( $nextYValue ne "" );
@@ -1599,7 +1600,7 @@ sub makeChart {
 
             my $color = $allocatedColors[$dataSet];
             for my $xIndex ( 0 .. ( $numDataPoints - 1 ) ) {
-                my $currentYValue = $row[$xIndex];
+                my $currentYValue = defined $row[$xIndex] ? $row[$xIndex] : "";
                 my $drawText      = $currentYValue;
                 if ($scatterChart) {
                     $drawText = $xAxisIndex{$xIndex} . "/" . $currentYValue;
@@ -1851,10 +1852,8 @@ sub adjustLegendYLocations {
 
         # Check to see if the currently looked at Y value overlaps with any
         # (possibly adjusted) previous Y values.  If so, then adjust it up.
-        for my $newDataSet (
-            sort { $newYvalues1{$b} <=> $newYvalues1{$a} }
-            keys %newYvalues1
-          )
+        for my $newDataSet ( sort { $newYvalues1{$b} <=> $newYvalues1{$a} }
+            keys %newYvalues1 )
         {
             my $new = $newYvalues1{$newDataSet};
 
@@ -1897,10 +1896,8 @@ sub adjustLegendYLocations {
 
         # Now adjust back down on the graph any legends that got adjusted
         # off the top of the graph.
-        for $dataSet (
-            sort { $newYvalues1{$a} <=> $newYvalues1{$b} }
-            keys %newYvalues1
-          )
+        for $dataSet ( sort { $newYvalues1{$a} <=> $newYvalues1{$b} }
+            keys %newYvalues1 )
         {
             $yValue  = $newYvalues1{$dataSet};
             $overLap = 0;
@@ -1925,8 +1922,7 @@ sub adjustLegendYLocations {
     # legends.  If so, adjust down.
                 for my $newDataSet2 (
                     sort { $newYvalues2{$a} <=> $newYvalues2{$b} }
-                    keys %newYvalues2
-                  )
+                    keys %newYvalues2 )
                 {
                     my $new = $newYvalues2{$newDataSet2};
                     if ( ( $yValue - $halfFontHeight ) <=
