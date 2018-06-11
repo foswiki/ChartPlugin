@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2004-2006 Peter Thoeny, Peter@Thoeny.org
 # Plugin written by http://TWiki.org/cgi-bin/view/Main/TaitCyrus
-# Copyright (C) 2008-2011 Foswiki Contributors
+# Copyright (C) 2008-2018 Foswiki Contributors
 #
 # For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
@@ -49,8 +49,8 @@ use vars qw(
   $defaultBarLeadingSpace $defaultBarTrailingSpace $defaultBarSpace
 );
 
-our $VERSION = '1.6.1';
-our $RELEASE = '1.6.1';
+our $VERSION = '1.62';
+our $RELEASE = '11 Jun 2018';
 our $SHORT_DESCRIPTION =
   'Create area, bar, line and scatter charts to visualize table data';
 
@@ -681,9 +681,9 @@ sub commonTagsHandler {
     }
     _init_defaults();
     my $chart = ChartPlugin( $topic, $web, $_[0] );
-    $_[0] =~ s/%CHART{(.*?)}%/$chart->_makeChart($1, $topic, $web)/eog;
+    $_[0] =~ s/%CHART\{(.*?)\}%/$chart->_makeChart($1, $topic, $web)/eog;
     $_[0] =~
-      s/%CHART_TIMER{(\d+) (.*)}%/$chart->_timeit($1, $2, $topic, $web)/eog;
+      s/%CHART_TIMER\{(\d+) (.*)\}%/$chart->_timeit($3, $2, $topic, $web)/eog;
 }
 
 1;
