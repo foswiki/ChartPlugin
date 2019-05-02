@@ -169,7 +169,7 @@ sub _parseOutTables {
 
         if ( !($insidePRE) ) {
 
-            if (/%TABLE{.*name="(.*?)".*}%/) {
+            if (/%TABLE\{.*name="(.*?)".*}%/) {
                 $tableName = $1;
             }
             if (/^\s*\|.*\|\s*$/) {
